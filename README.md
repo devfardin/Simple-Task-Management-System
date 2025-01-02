@@ -12,4 +12,4 @@ A lightweight task management application built using **React**, **TypeScript**,
 ## Tech Stack  
 - **Frontend:** React, TypeScript  
 - **State Management:** Redux Toolkit  
-- **Styling:** Tailwind CSS (optional, if styling is included)  
+- **Styling:** Tailwind CSS (optional, if styling is included)

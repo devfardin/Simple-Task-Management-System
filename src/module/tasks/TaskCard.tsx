@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { ITask } from '@/types'
-import { Trash2 } from 'lucide-react'
+import { Trash } from 'lucide-react'
 interface IProps {
     task: ITask
 }
@@ -17,16 +17,16 @@ const TaskCard = ({ task }: IProps) => {
                     "bg-yellow-500": task.priority === 'Medium', 
                     "bg-red-500": task.priority === 'Low', 
                    })}></div>
-                   <h1 className='text-xl font-medium text-neutral-600 dark:text-neutral-300'>{task?.title}</h1>
+                   <h1 className='text-xl font-medium text-neutral-600 dark:text-neutral-300 selection:bg-[#E0F5EF] selection:text-[#17B686]'>{task?.title}</h1>
                    </div>
 
-                    <p className='text-lg font-normal text-neutral-600 dark:text-neutral-300'>
+                    <p className='text-lg font-normal text-neutral-600 dark:text-neutral-300 selection:bg-[#E0F5EF] selection:text-[#17B686]'>
                         {task.description}
                     </p>
                 </div>
                 <div className="flex gap-3 items-center">
-                    <Button variant='link' className="p-0 text-red-500">
-                        <Trash2 />
+                    <Button variant='link' className="py-0 px-5 rounded-l-full rounded-r-full bg-red-500 text-neutral-100">
+                        <Trash size={50} />
                     </Button>
                 </div>
             </div>
