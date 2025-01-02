@@ -63,6 +63,14 @@ const initialState: InitialState = {
             isCompleted: false,
             priority: "Low",
           },
+          {
+            id: 8,
+            title: "Read a book",
+            description: "Finish reading 'Atomic Habits' by James Clear.",
+            dueDate: "2025-01-08",
+            isCompleted: false,
+            priority: "Low",
+          },
     ],
     filter: 'all',
 }
