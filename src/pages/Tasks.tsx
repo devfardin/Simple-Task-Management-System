@@ -6,7 +6,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 const Tasks = () => {
   const tasks = useAppSelector(selectTasks);
-
+  
   return (
     <Container>
       <div className="mt-5 bg-neutral-300 p-3 mb-6 rounded-lg flex justify-between items-center">
