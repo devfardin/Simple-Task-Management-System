@@ -11,17 +11,22 @@ import {
 } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import { addTask } from "@/redux/features/task/taskSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 function AddTaskModal() {
   const form = useForm();
-  const [date, setDate] = React.useState<Date | undefined>(new Date())
+  const dispatch = useAppDispatch()
   const handleFormSubmit = (data: any) => {
-    console.log(data);
-
+    dispatch(addTask(data));
   }
   return (
     <Dialog>
@@ -62,42 +67,64 @@ function AddTaskModal() {
 
             <FormField
               control={form.control}
-              name="deuDate"
+              name="priority"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter Deu Date </FormLabel>
+                  <FormLabel>Priority</FormLabel>
                   <FormControl>
                     { /* Your form field */}
-                    <Calendar {...field} mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      className="rounded-md border shadow w-full" />
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a priority to set" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Low</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                 </FormItem>
               )} />
 
             <FormField
               control={form.control}
-              name="isCompleted"
+              name="dueDate"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Select Status</FormLabel>
-                  <FormControl>
-                    { /* Your form field */}
-                    <Select {...field}>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="In Process" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="In Process">In Process</SelectItem>
-                          <SelectItem value="Completed">Completed</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Due Date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </FormItem>
-              )} />
+              )}
+            />
 
             <DialogFooter>
               <Button type="submit">Save changes</Button>
