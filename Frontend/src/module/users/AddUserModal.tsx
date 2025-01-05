@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { addUser } from "@/redux/features/users/userSlice";
-import { useAppDispatch } from "@/redux/hooks";
+// import { useAppDispatch } from "@/redux/hooks";
 import { IUser } from "@/types";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -19,9 +18,9 @@ function AddUserModal() {
   const form = useForm();
   const [isOpen, setIsOpen] =useState(false);
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
-    dispatch(addUser(data as IUser));
+    // dispatch(addUser(data as IUser));
     form.reset();
     setIsOpen(false)
   }
