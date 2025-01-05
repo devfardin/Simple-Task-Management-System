@@ -27,16 +27,16 @@ function AddUserModal() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-neutral-600">Add Task</DialogTitle>
+          <DialogTitle className="text-2xl text-neutral-600">Add User</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-3">
             <FormField
               control={form.control}
-              name="title"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter Title </FormLabel>
+                  <FormLabel>Enter Name </FormLabel>
                   <FormControl>
                     { /* Your form field */}
                     <Input {...field} />
@@ -45,7 +45,7 @@ function AddUserModal() {
               )} />
 
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit">Save User</Button>
             </DialogFooter>
           </form>
         </Form>
