@@ -16,20 +16,23 @@ const initialState: InitialState = {
 }
 type draftUser = Pick<IUser, 'name'>
 
-const creteUser = (userData: draftUser ) : IUser => {
-    return {id: nanoid(), ...userData}
+const creteUser = (userData: draftUser): IUser => {
+    return { id: nanoid(), ...userData }
 };
 
-const userSlice =  createSlice({
+const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         addUser: (state, action: PayloadAction<IUser>) => {
             const userData = creteUser(action.payload);
             state.users.push(userData)
+        },
+        removeUser: (state, action: PayloadAction<string>) => {
+            state.users = state.users.filter((user) => user.id !== action.payload)
         }
-    }
-})
+    },
+});
 export const selectUsers = (state: RootState) => {
     return state.user.users
 };
@@ -37,6 +40,6 @@ export const selectUsers = (state: RootState) => {
 export const selectFilter = (state: RootState) => {
     return state.user.filter
 }
-export const { addUser } =userSlice.actions;
+export const { addUser, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;
