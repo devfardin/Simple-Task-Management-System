@@ -2,10 +2,11 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
 import { delteTask, toggleIsCompleted } from '@/redux/features/task/taskSlice'
-import { useAppDispatch } from '@/redux/hooks'
-
+import { selectUsers } from '@/redux/features/users/userSlice'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { ITask } from '@/types'
 import { Trash } from 'lucide-react'
+
 interface IProps {
     task: ITask
 }
@@ -13,6 +14,8 @@ interface IProps {
 
 const TaskCard = ({ task }: IProps) => {
     const dispatch = useAppDispatch();
+    const users = useAppSelector(selectUsers);
+    const assignUser = users.find((user) => user.id === task.assignTo )
     return (
         <div className="border px-5 py-3 rounded-md">
             <div className="flex justify-between items-center">
@@ -23,8 +26,9 @@ const TaskCard = ({ task }: IProps) => {
                     "bg-yellow-500": task.priority === 'medium', 
                     "bg-red-500": task.priority === 'low', 
                    })}></div>
-                   <h1 className='text-xl font-medium text-neutral-600 dark:text-neutral-300 selection:bg-[#E0F5EF] selection:text-[#17B686]'>{task?.title}</h1>
+                   <h1 className={cn('text-xl font-medium transition-all delay-300 text-neutral-600 dark:text-neutral-300 selection:bg-[#E0F5EF] selection:text-[#17B686]', { 'line-through transition-all delay-300' : task.isCompleted })}>{task?.title}</h1>
                    </div>
+                   <h1>Assign to - { assignUser ? assignUser.name : 'No One' }</h1>
 
                     <p className='text-lg font-normal text-neutral-600 dark:text-neutral-300 selection:bg-[#E0F5EF] selection:text-[#17B686]'>
                         {task.description}

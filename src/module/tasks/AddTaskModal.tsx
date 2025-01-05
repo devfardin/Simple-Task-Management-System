@@ -16,16 +16,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { addTask } from "@/redux/features/task/taskSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { selectUsers } from "@/redux/features/users/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ITask } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 function AddTaskModal() {
   const form = useForm();
   const dispatch = useAppDispatch()
+  const users = useAppSelector(selectUsers)
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
     dispatch(addTask(data as ITask));
   }
@@ -102,7 +103,9 @@ function AddTaskModal() {
                         <SelectValue placeholder="Select a User to Assign" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="low">Low</SelectItem>
+                       {
+                        users.map((user) => <SelectItem value={user.id}>{user.name}</SelectItem>)
+                       }
                       </SelectContent>
                     </Select>
                   </FormControl>
