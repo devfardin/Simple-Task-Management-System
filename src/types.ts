@@ -4,7 +4,7 @@ export interface ITask {
     description: string,
     dueDate: string,
     isCompleted: boolean,
-    assignTo: string,
+    assignTo: string | null,
     priority: 'high' | 'medium' | 'low',
 }
 export interface IUser {
