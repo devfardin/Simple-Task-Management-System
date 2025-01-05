@@ -12,7 +12,7 @@ const Tasks = () => {
     <Container>
       <div className="mt-5 bg-neutral-300 p-3 mb-6 rounded-lg 
       flex justify-end items-center gap-5">
-        <h1 className="font-medium mr-auto text-neutral-600 text-xl selection:bg-[#E0F5EF] selection:text-[#17B686]">All Task</h1>
+        <h1 className="font-medium mr-auto text-neutral-600 text-xl selection:bg-[#E0F5EF] selection:text-[#17B686]">All Task {tasks.length}</h1>
         <Tabs defaultValue="all">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger onClick={() => dispatch(filterTask('all'))} value="all">All</TabsTrigger>

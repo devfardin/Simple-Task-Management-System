@@ -91,6 +91,26 @@ function AddTaskModal() {
 
             <FormField
               control={form.control}
+              name="assignTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assign To</FormLabel>
+                  <FormControl>
+                    { /* Your form field */}
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a User to Assign" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Low</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </FormItem>
+              )} />
+
+            <FormField
+              control={form.control}
               name="dueDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">

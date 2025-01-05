@@ -75,9 +75,11 @@ const initialState: InitialState = {
   filter: 'all',
 }
 type DraftTask = Pick<ITask, 'title' | 'description' | 'dueDate' | 'priority'>
+
 const createTask = (taskData: DraftTask): ITask => {
   return { id: nanoid(), isCompleted: false, ...taskData }
 }
+
 const taskSlice = createSlice({
   name: "task",
   initialState,
